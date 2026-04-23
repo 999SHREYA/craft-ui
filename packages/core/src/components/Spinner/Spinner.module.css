@@ -1,0 +1,32 @@
+/* Spinner.module.css */
+.root {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+}
+
+.wheel {
+  display:       block;
+  border-radius: var(--radius-full);
+  border-style:  solid;
+  border-color:  currentColor;
+  border-top-color: transparent;
+  animation: spin var(--duration-spin, 600ms) linear infinite;
+}
+
+.sm .wheel { width: 14px; height: 14px; border-width: 2px; }
+.md .wheel { width: 20px; height: 20px; border-width: 2px; }
+.lg .wheel { width: 28px; height: 28px; border-width: 3px; }
+
+.primary { color: var(--color-primary); }
+.muted   { color: var(--color-text-muted); }
+.white   { color: #ffffff; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wheel { animation-duration: 1200ms; }
+}
