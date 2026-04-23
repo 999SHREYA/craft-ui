@@ -1,0 +1,110 @@
+/* Input.module.css */
+
+.root {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-1);
+  width:          100%;
+}
+
+.rootDisabled {
+  opacity: 0.5;
+  cursor:  not-allowed;
+}
+
+/* ── Label ── */
+.label {
+  font-size:   var(--text-sm);
+  font-weight: var(--font-medium);
+  color:       var(--color-text);
+  line-height: var(--leading-tight);
+}
+
+/* ── Wrapper — border yahan hai, input pe nahi ── */
+/* Kyun: addons border ke andar hone chahiye */
+.wrapper {
+  display:       flex;
+  align-items:   center;
+  border:        1px solid var(--color-border-strong);
+  border-radius: var(--comp-input-radius);
+  background:    var(--color-bg);
+  transition:    border-color var(--duration-fast) var(--ease-out),
+                 box-shadow   var(--duration-fast) var(--ease-out);
+}
+
+.wrapper:focus-within {
+  border-color: var(--color-primary);
+  box-shadow:   0 0 0 3px var(--color-primary-subtle);
+}
+
+.wrapperError {
+  border-color: var(--color-error);
+}
+
+.wrapperError:focus-within {
+  border-color: var(--color-error);
+  box-shadow:   0 0 0 3px var(--color-error-subtle);
+}
+
+.wrapperDisabled {
+  background: var(--color-bg-muted);
+  cursor:     not-allowed;
+}
+
+/* ── Input element — border nahi, sirf padding ── */
+.input {
+  flex:             1;
+  width:            100%;
+  border:           none;
+  outline:          none;
+  background:       transparent;
+  font-family:      var(--font-sans);
+  font-size:        var(--text-sm);
+  color:            var(--color-text);
+  min-width:        0; /* flex child overflow fix */
+}
+
+.input::placeholder {
+  color: var(--color-text-subtle);
+}
+
+.input:disabled {
+  cursor: not-allowed;
+}
+
+/* ── Sizes ── */
+.sizeSm { height: 32px; padding: 0 var(--space-2); font-size: var(--text-xs); }
+.sizeMd { height: var(--comp-input-height); padding: 0 var(--space-3); }
+.sizeLg { height: 48px; padding: 0 var(--space-4); font-size: var(--text-base); }
+
+/* Addon ke saath padding adjust */
+.hasLeft  { padding-left:  var(--space-2); }
+.hasRight { padding-right: var(--space-2); }
+
+/* ── Addon slot ── */
+.addon {
+  display:     flex;
+  align-items: center;
+  padding:     0 var(--space-3);
+  color:       var(--color-text-muted);
+  font-size:   var(--text-sm);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* ── Helper texts ── */
+.hint {
+  font-size: var(--text-xs);
+  color:     var(--color-text-muted);
+}
+
+.errorMessage {
+  font-size: var(--text-xs);
+  color:     var(--color-error);
+  font-weight: var(--font-medium);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .wrapper { transition-duration: 0ms; }
+}
