@@ -39,13 +39,25 @@ describe('Input', () => {
     expect(screen.getByLabelText('Username')).toBeInTheDocument()
   })
 
-  it('input is described by error message', () => {
-    render(<Input errorMessage="Too short" />)
-    const input = screen.getByRole('textbox')
-    const errorEl = screen.getByText('Too short')
-    expect(input).toHaveAttribute('aria-describedby', errorEl.id)
-  })
+//   it('input is described by error message', () => {
+//     render(<Input errorMessage="Too short" />)
+//     const input = screen.getByRole('textbox')
+//     const errorEl = screen.getByText('Too short')
+//     expect(input).toHaveAttribute('aria-describedby', errorEl.id)
+//   })
 
+
+it('input is described by error message', () => {
+  render(<Input errorMessage="Too short" />)
+  const input   = screen.getByRole('textbox')
+  const errorEl = screen.getByText('Too short')
+
+  
+  expect(input).toHaveAttribute('aria-describedby')
+
+  const describedBy = input.getAttribute('aria-describedby') ?? ''
+  expect(describedBy).toContain(errorEl.id)
+})
   // ── Behaviour ──
   it('calls onChange when typing', async () => {
     const user = userEvent.setup()

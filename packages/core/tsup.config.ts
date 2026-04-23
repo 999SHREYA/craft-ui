@@ -1,16 +1,22 @@
+// packages/core/tsup.config.mts
 import { defineConfig } from 'tsup'
+import { copyFileSync, mkdirSync } from 'fs'
 
 export default defineConfig({
-  entry:  ['src/index.ts'],  // entry point
-  format: ['esm', 'cjs'],    // dono formats build karo
-  dts:    true,              // TypeScript .d.ts files generate karo
-  clean:  true,              // build se pehle dist/ clean karo
-  sourcemap: true,          // debugging ke liye source maps
-  splitting: false,         // library mein code splitting mat karo
+  entry:     ['src/index.ts'],
+  format:    ['esm', 'cjs'],
+  dts:       true,
+  clean:     true,
+  sourcemap: true,
+  splitting: false,
+  external:  ['react', 'react-dom'],
 
-  // React ko bundle mat karo — peer dependency hai
-  external: ['react', 'react-dom'],
-
-  // CSS tokens file copy karo dist/ mein
-  publicDir: 'src/tokens',
+  // Build complete hone ke baad CSS manually copy karo
+  async onSuccess() {
+    mkdirSync('dist', { recursive: true })
+    copyFileSync('src/tokens/tokens.css',    'dist/tokens.css')
+    copyFileSync('src/tokens/primitives.css', 'dist/primitives.css')
+    copyFileSync('src/tokens/semantic.css',   'dist/semantic.css')
+    console.log('✓ CSS tokens copied to dist/')
+  },
 })

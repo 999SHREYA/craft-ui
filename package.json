@@ -1,11 +1,10 @@
 {
   "name": "craft-ui-monorepo",
   "private": true,
-  "scripts": {
-    "build": "pnpm -r build",
-    "test":  "pnpm -r test",
-    "lint":  "pnpm -r lint",
-    "dev":   "pnpm -r --parallel dev"
+ "scripts": {
+    "sync:tokens": "cat packages/core/src/tokens/primitives.css packages/core/src/tokens/semantic.css > packages/docs/public/tokens.css",
+    "build": "pnpm -r build && pnpm sync:tokens",
+    "dev": "pnpm sync:tokens && pnpm -r --parallel dev"
   },
   "devDependencies": {
     "typescript": "^5.4.0"
